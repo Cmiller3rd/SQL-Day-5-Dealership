@@ -164,3 +164,21 @@ values
 (1, 1, 1, 2, 1, 'Oil Change', 54.99, default),
 (2, 1, 1, 3, 1, 'Tune-up', 159.99, default),
 (3, 5, 3, 1, 3, 'Service', 99.99, default);
+
+
+create or replace function add_cars(_car_serial integer, _make VARCHAR, _model VARCHAR, _model_year year, _is_used bool, _price numeric(7,2))
+returns void
+as $main$
+begin
+	insert into c_cars(car_serial, make, model, model_year, is_used, price)
+	values (_car_serial, _make, _model, _model_year, _is_used, _price);
+end;
+$main$
+language plpgsql;
+
+
+select add_cars(7, 'Ford', 'Mustang', 1967, true, 10993.95);
+
+select add_cars(8, 'Kia', 'Sorento', 2015, true, 15339.95);
+
+select add_cars(9, 'BMW', 'Z3', 2023, false, 79999.99);
